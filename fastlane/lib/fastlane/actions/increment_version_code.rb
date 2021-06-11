@@ -37,11 +37,11 @@ module Fastlane
                                        verify_block: proc do |value|
                                           UI.user_error!("No build.gradle path for IncrementVersionCodeAction given, pass using `build_gradle: './app/build.gradle'`") unless (value and not value.empty?)
                                        end),
-          FastlaneCore::ConfigItem.new(key: :development,
-                                       env_name: "FL_INCREMENT_VERSION_CODE_DEVELOPMENT",
-                                       description: "Create a development certificate instead of a distribution one",
-                                       is_string: false, # true: verifies the input is a string, false: every kind of value
-                                       default_value: false) # the default value if the user didn't provide one
+          FastlaneCore::ConfigItem.new(key: :version_code,
+                                       env_name: "FL_INCREMENT_VERSION_CODE_VERSION_CODE",
+                                       description: "Change to a specific version code",
+                                       is_string: true,
+                                       optional: true),
         ]
       end
 

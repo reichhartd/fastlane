@@ -37,11 +37,18 @@ module Fastlane
                                        verify_block: proc do |value|
                                           UI.user_error!("No build.gradle path for IncrementVersionNameAction given, pass using `build_gradle: './app/build.gradle'`") unless (value and not value.empty?)
                                        end),
-          FastlaneCore::ConfigItem.new(key: :development,
-                                       env_name: "FL_INCREMENT_VERSION_NAME_DEVELOPMENT",
-                                       description: "Create a development certificate instead of a distribution one",
-                                       is_string: false, # true: verifies the input is a string, false: every kind of value
-                                       default_value: false) # the default value if the user didn't provide one
+          FastlaneCore::ConfigItem.new(key: :bump_type,
+                                       env_name: "FL_INCREMENT_VERSION_NAME_BUMP_TYPE",
+                                       description: "The type of this version bump. Available: patch, minor, major",
+                                       is_string: false,
+                                       verify_block: proc do |value|
+                                         UI.user_error!("Available values are 'patch', 'minor' and 'major'") unless ['bump', 'patch', 'minor', 'major'].include?(value)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :version_name,
+                                       env_name: "FL_INCREMENT_VERSION_NAME_VERSION_NAME",
+                                       description: "Change to a specific version name",
+                                       is_string: true,
+                                       optional: true),
         ]
       end
 
