@@ -42,7 +42,7 @@ module Fastlane
                                        description: "The type of this version bump. Available: patch, minor, major",
                                        is_string: false,
                                        verify_block: proc do |value|
-                                         UI.user_error!("Available values are 'patch', 'minor' and 'major'") unless ['bump', 'patch', 'minor', 'major'].include?(value)
+                                         UI.user_error!("Available values are 'patch', 'minor' and 'major'") unless ['patch', 'minor', 'major'].include?(value)
                                        end),
           FastlaneCore::ConfigItem.new(key: :version_name,
                                        env_name: "FL_INCREMENT_VERSION_NAME_VERSION_NAME",
