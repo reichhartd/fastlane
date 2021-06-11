@@ -29,16 +29,13 @@ module Fastlane
       end
 
       def self.available_options
-        # Define all options your action supports.
-
-        # Below a few examples
         [
-          FastlaneCore::ConfigItem.new(key: :api_token,
-                                       env_name: "FL_INCREMENT_VERSION_NAME_API_TOKEN", # The name of the environment variable
-                                       description: "API Token for IncrementVersionNameAction", # a short description of this parameter
+          FastlaneCore::ConfigItem.new(key: :build_gradle,
+                                       env_name: "FL_INCREMENT_VERSION_NAME_BUILD_GRADLE",
+                                       description: "You must specify the path to your build.gradle",
+                                       is_string: true,
                                        verify_block: proc do |value|
-                                          UI.user_error!("No API token for IncrementVersionNameAction given, pass using `api_token: 'token'`") unless (value and not value.empty?)
-                                          # UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
+                                          UI.user_error!("No build.gradle path for IncrementVersionNameAction given, pass using `build_gradle: './app/build.gradle'`") unless (value and not value.empty?)
                                        end),
           FastlaneCore::ConfigItem.new(key: :development,
                                        env_name: "FL_INCREMENT_VERSION_NAME_DEVELOPMENT",
