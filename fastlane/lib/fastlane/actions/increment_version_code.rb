@@ -32,9 +32,7 @@ module Fastlane
       end
 
       def self.details
-        # Optional:
-        # this is your chance to provide a more detailed description of this action
-        "You can use this action to do cool things..."
+        "This is the counterpart to the iOS action [increment_build_number](http://docs.fastlane.tools/actions/increment_build_number/)."
       end
 
       def self.available_options

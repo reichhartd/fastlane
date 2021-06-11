@@ -55,9 +55,7 @@ module Fastlane
       end
 
       def self.details
-        # Optional:
-        # this is your chance to provide a more detailed description of this action
-        "You can use this action to do cool things..."
+        "This is the counterpart to the iOS action [increment_version_number](https://docs.fastlane.tools/actions/increment_version_number/)."
       end
 
       def self.available_options
