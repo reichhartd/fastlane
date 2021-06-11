@@ -57,9 +57,9 @@ module Fastlane
       def self.output
         # Define the shared values you are going to provide
         # Example
-        [
-          ['INCREMENT_VERSION_CODE_CUSTOM_VALUE', 'A description of what this value contains']
-        ]
+        # [
+        #   ['INCREMENT_VERSION_CODE_CUSTOM_VALUE', 'A description of what this value contains']
+        # ]
       end
 
       def self.return_value
@@ -68,6 +68,18 @@ module Fastlane
 
       def self.authors
         ["reichhartd"]
+      end
+
+      def self.example_code
+        [
+          'increment_version_code(
+            build_gradle: "./app/build.gradle" # You must specify the path to your build.gradle
+          )',
+          'increment_version_code(
+            build_gradle: "./app/build.gradle" # You must specify the path to your build.gradle
+            build_number: "73", # Specify specific version code (optional, omitting it increments by one)
+          )'
+        ]
       end
 
       def self.is_supported?(platform)
