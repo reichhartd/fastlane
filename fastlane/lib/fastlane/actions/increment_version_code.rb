@@ -19,7 +19,7 @@ module Fastlane
       #####################################################
 
       def self.description
-        "A short description with <= 80 characters of what this action does"
+        "Increment the version code of your project"
       end
 
       def self.details
