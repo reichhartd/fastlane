@@ -6,12 +6,44 @@ module Fastlane
 
     class IncrementVersionNameAction < Action
       def self.run(params)
-        # fastlane will take care of reading in the parameter and fetching the environment variable:
-        UI.message "Parameter API Token: #{params[:api_token]}"
+        path = params[:build_gradle]
+        bump_type = params[:bump_type]
+        version_name = params[:version_name]
 
-        # sh "shellcommand ./path"
+        re = /versionName\s+"(\d|\.)*"/
+        re_value = /"(\d|\.)*"/
 
-        # Actions.lane_context[SharedValues::INCREMENT_VERSION_NAME_CUSTOM_VALUE] = "my_val"
+        s = File.read(path)
+        if (version_name == nil)
+            old_version_name = s[re][re_value]
+            old_version_name[0] = ''
+            old_version_name[old_version_name.length - 1] = ''
+            version_name = old_version_name
+
+            version_name = version_name.split(/\./)
+
+            case bump_type
+            when 'patch'
+                version_name[2] = (version_name[2].to_i + 1).to_s
+            when 'minor'
+                version_name[1] = (version_name[1].to_i + 1).to_s
+                version_name[2] = '0'
+            when 'major'
+                version_name[0] = (version_name[0].to_i + 1).to_s
+                version_name[1] = '0'
+                version_name[2] = '0'
+            else
+                raise 'Wrong or no bump_type provided'
+            end
+
+            version_name = version_name.join('.')
+        end
+
+        s[re] = "versionName \"" + version_name + "\""
+
+        f = File.new(path, 'w')
+        f.write(s)
+        f.close
       end
 
       #####################################################

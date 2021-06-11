@@ -6,12 +6,21 @@ module Fastlane
 
     class IncrementVersionCodeAction < Action
       def self.run(params)
-        # fastlane will take care of reading in the parameter and fetching the environment variable:
-        UI.message "Parameter API Token: #{params[:api_token]}"
+        path = params[:build_gradle]
+        version_code = params[:version_code]
 
-        # sh "shellcommand ./path"
+        re = /versionCode\s+(\d+)/
 
-        # Actions.lane_context[SharedValues::INCREMENT_VERSION_CODE_CUSTOM_VALUE] = "my_val"
+        s = File.read(path)
+        if (version_code == nil)
+            old_version_code = s[re, 1].to_i
+            version_code = (old_version_code + 1).to_s
+        end
+        s[re, 1] = (version_code).to_s
+
+        f = File.new(path, 'w')
+        f.write(s)
+        f.close
       end
 
       #####################################################
